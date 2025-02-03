@@ -1,0 +1,171 @@
+1. ¿Qué es una API?
+API (Application Programming Interface): Es una interfaz que permite la comunicación entre sistemas (por ejemplo, entre el Front-end y el Back-end).
+Las API permiten que "robots" (sistemas automatizados) se comuniquen entre sí.
+
+2. ¿Qué es una API REST?
+API REST (Representational State Transfer): Es un tipo de API que utiliza el protocolo HTTP para permitir la comunicación entre sistemas.
+- Puede trabajar con formatos como XML y JSON.
+- En su mayoría, las respuestas de las APIs REST se envían en formato JSON.
+
+3. Flujo de comunicación entre Front-end y Back-end:
+- Un usuario hace una petición desde el Front-end.
+- La petición viaja a través de una ruta hacia el servidor.
+- El servidor procesa la solicitud y responde al cliente (Front-end).
+- En el Front-end, JavaScript puede:
+  - Manipular el DOM directamente.
+  - Hacer solicitudes a una API REST para obtener o enviar información.
+- El Back-end también interactúa con bases de datos para persistir la información.
+
+4. ¿Qué es una API Key?
+- Es una clave que permite al Back-end identificar quién está haciendo una solicitud.
+- Propósitos principales:
+  - **Autenticación:** Identificar al usuario que hace la solicitud.
+  - **Autorización:** Determinar los permisos del usuario.
+  - Limitar la cantidad de solicitudes que un usuario puede realizar.
+
+5. Autenticación y Autorización:
+- **Autenticación:** Verifica la identidad de un usuario o sistema.
+- **Autorización:** Determina qué acciones o recursos están permitidos para el usuario.
+
+6. Métodos HTTP:
+Son las acciones que el Front-end utiliza para indicar al Back-end qué hacer:
+- **GET:** Consultar información (lectura).
+- **POST:** Crear recursos (enviar información al servidor).
+- **PUT:** Modificar un recurso completo.
+- **PATCH:** Modificar solo atributos específicos de un recurso.
+- **DELETE:** Eliminar un recurso.
+
+Ejemplo práctico:
+- **GET:** Obtener una lista de gatos favoritos.
+- **POST:** Guardar un gatito en la lista de favoritos.
+
+7. Endpoints y Query Parameters:
+- **Endpoints:** Son las rutas de una API. Especifican el recurso o información que queremos solicitar o manipular.
+  - Ejemplo: `/api/gatos/favoritos`.
+- **Query Parameters:** Son datos adicionales que se envían en la URL para filtrar o personalizar la respuesta de la API.
+  - Ejemplo: `/api/gatos?raza=siames&edad=2`.
+
+8. HTTP Status Codes:
+Indican el estado de una solicitud HTTP:
+- **1XX:** Respuestas informativas (procesando).
+- **2XX:** Respuestas exitosas.
+  - Ejemplo: 200 OK, 201 Created.
+- **3XX:** Redirecciones.
+  - Ejemplo: 301 Moved Permanently, 302 Found.
+- **4XX:** Errores del cliente.
+  - Ejemplo: 400 Bad Request, 401 Unauthorized, 404 Not Found.
+- **5XX:** Errores del servidor.
+  - Ejemplo: 500 Internal Server Error, 503 Service Unavailable.
+
+9. Form Data:
+- **¿Qué es FormData?**
+  - Es un objeto de JavaScript diseñado para manejar datos de formularios fácilmente. Permite enviar información como texto, archivos, y más en solicitudes HTTP.
+
+- **Uso con APIs:**
+  - El objeto FormData se puede pasar directamente como argumento en el cuerpo (body) de una solicitud HTTP cuando se hace una petición a una API.
+
+- **El boundary:**
+  - Cuando se usa FormData, el navegador genera automáticamente un boundary, que es un separador único incluido en el encabezado `Content-Type` de la solicitud.
+  - Este boundary es esencial porque actúa como delimitador entre los diferentes campos del FormData. Ayuda al back-end a interpretar correctamente los datos enviados.
+
+- **¿Por qué no especificar manualmente el Content-Type?**
+  - Si defines manualmente `Content-Type: multipart/form-data`, el navegador no agregará el boundary automáticamente, lo que provocará errores en la solicitud.
+  - Al dejar que el navegador maneje el `Content-Type`, se asegura que el boundary sea generado y añadido correctamente.
+
+- **Mejor práctica:**
+  - No es necesario configurar manualmente el `Content-Type` cuando se usa FormData.
+  - Deja que el navegador lo maneje automáticamente para evitar problemas y garantizar que el servidor pueda procesar los datos correctamente.
+
+10. Axios: Librería para consumir APIs
+- **¿Qué es Axios?**
+  - Es un cliente HTTP basado en promesas para realizar solicitudes a APIs de manera eficiente y con una experiencia mejorada respecto a `fetch`.
+
+- **Características clave:**
+  - **Instancias personalizadas:**
+    - Permite crear instancias con configuraciones específicas (headers, baseURL, etc.), reutilizables en múltiples solicitudes.
+  - **Facilita el manejo del JSON:**
+    - No necesitas llamar manualmente a `res.json()` ni hacer `JSON.stringify()` en el cuerpo de la solicitud; Axios lo gestiona automáticamente.
+  - **Soporte para interceptores:**
+    - Puedes interceptar solicitudes o respuestas para agregar lógica adicional (autenticación, manejo de errores, etc.).
+  - **Compatibilidad:**
+    - Funciona en navegadores y Node.js.
+
+- **Otros clientes HTTP similares:**
+  - **Trae.js:** Minimalista y enfocado en simplicidad.
+  - **node-fetch:** Basado en fetch, ideal para Node.js.
+  - **request:** Muy usado en Node.js (aunque está en desuso en favor de alternativas modernas).
+
+11. CORS (Cross-Origin Resource Sharing): Intercambio de Recursos entre Orígenes
+- **¿Qué es?**
+  - Es una política de seguridad que restringe las solicitudes HTTP entre diferentes dominios para proteger los datos.
+
+- **Modos de CORS en fetch:**
+  - **cors:** Permite solicitudes entre orígenes (frontend ↔ backend) si el servidor lo autoriza.
+  - **no-cors:** Limita el acceso a ciertos recursos (solo permite leer respuestas simples).
+  - **same-origin:** Restringe solicitudes al mismo dominio.
+    - Ejemplo: Si la aplicación está en `example.com`, no puede hacer solicitudes a `api.example2.com` con este modo.
+
+- **Errores comunes:**
+  - Si aparece un error de CORS, significa que el servidor no ha configurado los permisos necesarios para aceptar solicitudes desde el origen que intentas usar.
+
+12. Cache en solicitudes HTTP:
+- **¿Qué es?**
+  - Controla cómo se almacenan y reutilizan las respuestas HTTP para optimizar el rendimiento.
+
+- **Modos de cache más usados:**
+  - **default:** Usa la política de cache predeterminada del navegador.
+  - **no-store:** No guarda nada en cache, siempre solicita una nueva respuesta al servidor.
+  - **reload:** Fuerza la solicitud desde el servidor y actualiza el cache.
+  - **no-cache:** Verifica con el servidor si hay una versión actualizada antes de usar el cache.
+  - **force-cache:** Usa siempre la versión en cache, incluso si está desactualizada.
+  - **only-if-cached:** Solo usa el cache; si no existe, la solicitud falla.
+
+- **Recomendación:**
+  - Utilizar configuraciones específicas según la necesidad, pero evitar modos como `no-cache` si no es necesario, para no afectar el rendimiento.
+
+13. Redirect en solicitudes HTTP:
+- **¿Qué es?**
+  - Define cómo manejar redirecciones (status codes como 301, 302).
+
+- **Modos en fetch:**
+  - **follow:** Sigue automáticamente las redirecciones (modo predeterminado).
+  - **error:** Bloquea las redirecciones y genera un error.
+  - **manual:** Permite manejar manualmente las redirecciones en tu código.
+
+- **Usos comunes:**
+  - Redirigir a una nueva URL en caso de cambio de endpoint.
+  - Controlar si el navegador debe seguir automáticamente una redirección o no.
+
+14. El mundo mas alla de Rest:
+    -SendBeacon: No espera una respuesta del servidor
+    -Es buena idea para analytics
+
+GraphQL:
+-Empowered clients.
+-All requests on the same point
+-Se puede manejar la informacion que se le pide al back-end desde el front end, solo se necesita un enpoint y luego se especifica que elementos se quieren recibir , hay objetos como mutation , Query
+
+Web sockets:
+-Dejar el 'tunel abierto'
+- Util para aplicaciones real time('comunicación instantanea')
+-Es como cuando llamo y pido algo pero dejo la llamada abierta y cada vez que necesito algo solo pregunto por que la llamada esta en linea
+
+Web 3.0
+-Web 2.0 es la que usamos normalmente: Google, Facebook, instagram, facebook pero existe la web 3.0
+-Daaps: aplicaciones descentralizadas.
+-Se ignifica que ademas de poder leer y crear informacion podamos ser dueños de la informacion
+
+¿Como funciona la web en general?
+-cliente(front-end), logica y persistencia
+-El cliente le hace una solicitud  a la logica de negocios que es el back-end donde tiene permisos, autorizaciones, autenticaciones de lo que cada usuario puede hacer. esta logica se conecta a una base de datos la cual 'persiste ' la informacion(pueden ser distintos tipos de archivos.. etc)
+
+Elementos en la web:
+-Clientes(JS - React, angular, svelt, vue.js) construyen la parte visual pero tambien se conectan con el back-end (logica de negocios ) para.. consumir la informacion. en el backend(Node.js, go, rubyonrails, pyhton). el front end es como un intermediario que utiliza(res:API, Grahp o DNS) para hacer peticiones al back-end. la persistencia se utiliza en las bases de datos donde se almacena la informacion
+
+Aplicaciones Descentralizadas:
+-Las tres capas siguen siendo las mismas(cliente(front-end), logica(back-end), persistencia)
+la diferencia es que se usan otras herramientas ,ya no se usa REST, API REST.. no.. nada de eso. sino que utilizamos por ejemplo JSON-RPC o ENS , en el cliente se usa(WMJS, ether.js whisper) en el back-en, ya no tenemos lenguajes de programacion comunes sino que tenemos por ejemplo, solidity ahora esos lugares de logica de negocio ya no usan bases de datos tradicionales sino que usan por ejemplo: IPFS, terium , polygon.. ESTAS herramientas nos ayudan a que nosotros seamos dueños de la informacion
+-Las aplicaciones descentralizadas son por ejemplo: las de criptomonedad o apuestas.
+
+
+

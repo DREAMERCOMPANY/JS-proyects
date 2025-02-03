@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="Assets/icons/Imagem de desenho de contorno branco de gato simples fundo preto Arte gerada por IA _ imagem Premium gerada com IA.jpg"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./index.js" defer></script>
+    <title>Michis</title>
+
+</head>
+<body>
+
+    <h1>Cats App</h1>
+    <span id="error"></span>
+
+    <section id="randomMichis">
+
+        <h2>Random Cats</h2>
+
+        <article>
+            <img id="img1" alt="" width="150">
+            <button id="btn1">Save to favourites</button>
+        </article>
+
+        <article>
+            <img id="img2" alt="" width="150">
+            <button id="btn2">Save to favourites</button>
+        </article>
+        
+        <button id="reload-btn">Reload</button>
+
+    </section>
+
+    <section id="uploadingMichi">
+        <h2>Upload your cat pict</h2>
+
+        <form id="uploadingForm">
+            <!--Subir fotos de los gatos-->
+            <input id="file" type="file" name="file">
+            <button type="button" onclick="uploadMichiPhoto()">Upload pict</button>
+        </form>
+    </section>
+
+    <section id="favouritesMichis">
+        <h2>Favourite Cats</h2>
+        <article>
+            <img id="img3" alt="fav cat">
+            <button id="">Remove from favourites</button>
+        </article>
+    </section>
+
+
+    
+</body>
+</html>
